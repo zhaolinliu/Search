@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <Title>防汛查询系统</Title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">  <!-- 初始化移动浏览显示 -->		
+  <link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"/>  <!-- 列表样式 -->
+</head>
+<body>
+
+<!-- 实时水雨情 -->  
+<div data-role="page" id="index"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed" align="center"><!-- 标题 -->
+    <p>防汛查询系统</p>
+  </div>
+
+  <div role="main" class="ui-content"><!-- 内容 -->
+    <form><!-- 表单 -->
+	 <div class="ui-field-contain">
+		<label>测站分类</label>
+        <select>  
+            <option value ="1">河道水文站</option>  
+            <option value ="2">水库水文站</option>  
+            <option value="3">堰闸水文站</option>  
+            <option value="4">潮位站</option>  
+        </select> 
+	 </div>
+     <div>
+         <div class="ui-field-contain">
+		 <label>地市</label>
+         <select>  
+            <option value ="1">南京</option>  
+            <option value ="2">无锡</option>  
+            <option value="3">常州</option>  
+            <option value="4">徐州</option>  
+            <option value="5">连云港</option>  
+            <option value="6">淮安</option>  
+            <option value="7">扬州</option>  
+            <option value="8">镇江</option>  
+            <option value="9">徐宿迁</option>  
+         </select> 
+	     </div>
+         <div class="ui-field-contain">
+		 <label>区县</label>
+         <select>  
+            <option value ="1">市区</option>  
+            <option value ="2">浦口区</option>  
+            <option value="3">江宁区</option>  
+            <option value="4">高淳区</option>  
+            <option value="5">溧水区</option>  
+         </select> 
+	     </div>
+     </div>
+     <div class="ui-field-contain">
+         <label>站名</label>
+         <input type="text">
+     </div>
+	</form>
+    <a href="#" id="ajaxbtn" class="ui-btn ui-btn-center">确定</a>
+    <table data-role="table" data-mode="reflow" class="ui-responsive table-stroke"><!-- 回流 XX 下划线 -->
+    <thead>
+        <tr>
+            <th>站名</th>
+            <th>行政区</th>
+            <th>水位</th>
+            <th>汛限水位</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>下关</td>
+            <td>南京</td>
+            <td>8.5mm</td>
+            <td>7.5mm</td>
+        </tr>
+        <tr>
+            <td>无锡（大）</td>
+            <td>南京</td>
+            <td>6.5mm</td>
+            <td>7.5mm</td>
+        </tr>
+        <tr>
+            <td>东山</td>
+            <td>南京</td>
+            <td>7.3mm</td>
+            <td>7.5mm</td>
+        </tr>
+    </tbody>
+    </table>
+  </div>
+
+  <div data-role="footer" data-position="fixed"><!-- 页脚文本 -->
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index" data-icon="star">实时水雨情</a></li>
+        <li><a href="#index2" data-icon="star">防汛组织</a></li>
+        <li><a href="#index3" data-icon="star">实时工险情</a></li>
+	 </ul>
+	</div>
+  </div>
+</div>
+
+<!-- 防汛组织 -->
+
+<div data-role="page" id="index2"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed"><!-- 标题 -->
+
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index2" data-icon="grid">指挥机构</a></li>
+        <li><a href="#index2-2" data-icon="grid">工程负责人</a></li>
+        <li><a href="#index2-3" data-icon="grid">抢险队伍</a></li>
+        <li><a href="#index2-4" data-icon="grid">防汛责任状</a></li>
+	 </ul>
+	</div>  
+  </div>
+  <div role="main" class="ui-content"><!-- 内容 -->
+     <div class="ui-field-contain">
+		<label>机构类型</label>
+        <select>  
+            <option value ="1">省级机构</option>  
+            <option value ="2">联防机构</option>  
+            <option value="3">市级机构</option>  
+            <option value="4">县级机构</option>  
+        </select> 
+	 </div>
+     <div class="ui-field-contain">
+		<label>年份</label>
+        <select>  
+            <option value ="1">2013</option>  
+            <option value ="2">2012</option>  
+            <option value="3">2011</option>  
+            <option value="4">2010</option>  
+        </select> 
+	 </div>  
+     <a href="#" id="ajaxbtn" class="ui-btn ui-btn-center">查询</a>   
+  </div>
+  <div data-role="footer" data-position="fixed"><!-- 页脚文本 -->
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index" data-icon="star">实时水雨情</a></li>
+        <li><a href="#index2" data-icon="star">防汛组织</a></li>
+        <li><a href="#index3" data-icon="star">实时工险情</a></li>
+	 </ul>
+	</div>
+   </div>
+</div>
+<!-- 工程责任人 -->
+<div data-role="page" id="index2-2"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed"><!-- 标题 -->
+
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index2" data-icon="grid">指挥机构</a></li>
+        <li><a href="#index2-2" data-icon="grid">工程负责人</a></li>
+        <li><a href="#index2-3" data-icon="grid">抢险队伍</a></li>
+        <li><a href="#index2-4" data-icon="grid">防汛责任状</a></li>
+	 </ul>
+	</div>  
+  </div>
+
+  <div role="main" class="ui-content"><!-- 内容 -->
+     <div class="ui-field-contain">
+		<label>工程类型</label>
+        <select>  
+            <option value ="1">省直管工程</option>  
+            <option value ="2">蓄滞洪区工程</option>  
+            <option value="3">重点防洪工程</option>  
+            <option value="4">大中型水库</option>  
+            <option value="5">大江大河</option> 
+        </select> 
+	 </div>
+     <div class="ui-field-contain">
+		<label>年份</label>
+        <select>  
+            <option value ="1">2013</option>  
+            <option value ="2">2012</option>  
+            <option value="3">2011</option>  
+            <option value="4">2010</option>  
+        </select> 
+	 </div>  
+     <a href="#" id="ajaxbtn" class="ui-btn ui-btn-center">查询</a>   
+  </div>
+ <div data-role="footer" data-position="fixed"><!-- 页脚文本 -->
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index" data-icon="star">实时水雨情</a></li>
+        <li><a href="#index2" data-icon="star">防汛组织</a></li>
+        <li><a href="#index3" data-icon="star">实时工险情</a></li>
+	 </ul>
+	</div>
+  </div>
+</div>
+<!-- 抢险队伍 -->
+<div data-role="page" id="index2-3"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed"><!-- 标题 -->
+
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index2" data-icon="grid">指挥机构</a></li>
+        <li><a href="#index2-2" data-icon="grid">工程负责人</a></li>
+        <li><a href="#index2-3" data-icon="grid">抢险队伍</a></li>
+        <li><a href="#index2-4" data-icon="grid">防汛责任状</a></li>
+	 </ul>
+	</div>  
+  </div>
+
+  <div role="main" class="ui-content"><!-- 内容 -->
+     <div class="ui-field-contain">
+		<label>队伍类型</label>
+        <select>  
+            <option value ="1">市县抢险队伍</option>  
+            <option value ="2">河湖提防抢险队伍</option>
+        </select> 
+	 </div>
+     <div class="ui-field-contain">
+		<label>年份</label>
+        <select>  
+            <option value ="1">2013</option>  
+            <option value ="2">2012</option>  
+            <option value="3">2011</option>  
+            <option value="4">2010</option>  
+        </select> 
+	 </div>  
+     <a href="#" id="ajaxbtn" class="ui-btn ui-btn-center">查询</a>   
+  </div>
+ <div data-role="footer" data-position="fixed"><!-- 页脚文本 -->
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index" data-icon="star">实时水雨情</a></li>
+        <li><a href="#index2" data-icon="star">防汛组织</a></li>
+        <li><a href="#index3" data-icon="star">实时工险情</a></li>
+	 </ul>
+	</div>
+  </div>
+</div>
+<!-- 工防汛责任状 -->
+<div data-role="page" id="index2-4"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed"><!-- 标题 -->
+
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index2" data-icon="grid">指挥机构</a></li>
+        <li><a href="#index2-2" data-icon="grid">工程负责人</a></li>
+        <li><a href="#index2-3" data-icon="grid">抢险队伍</a></li>
+        <li><a href="#index2-4" data-icon="grid">防汛责任状</a></li>
+	 </ul>
+	</div>  
+  </div>
+
+  <div role="main" class="ui-content"><!-- 内容 -->
+     <div class="ui-field-contain">
+		<label>城市名字</label>
+        <select>  
+            <option value ="1">南京</option>  
+            <option value ="2">苏州</option>  
+            <option value="3">常州</option>  
+            <option value="4">无锡</option>
+        </select> 
+	 </div>
+     <div class="ui-field-contain">
+		<label>年份</label>
+        <select>  
+            <option value ="1">2013</option>  
+            <option value ="2">2012</option>  
+            <option value="3">2011</option>  
+            <option value="4">2010</option>  
+        </select> 
+	 </div>  
+     <a href="#" id="ajaxbtn" class="ui-btn ui-btn-center">查询</a>   
+  </div>
+ <div data-role="footer" data-position="fixed"><!-- 页脚文本 -->
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index" data-icon="star">实时水雨情</a></li>
+        <li><a href="#index2" data-icon="star">防汛组织</a></li>
+        <li><a href="#index3" data-icon="star">实时工险情</a></li>
+	 </ul>
+	</div>
+  </div>
+</div>
+<!-- 实时工险情 -->
+<div data-role="page" id="index3"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed"><!-- 标题 -->
+
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index3" data-icon="grid">实时工情</a></li>
+        <li><a href="#index3-2" data-icon="grid">险情</a></li>
+        <li><a href="#index3-3" data-icon="grid">防汛动态</a></li>
+	 </ul>
+	</div>  
+  </div>
+
+  <div role="main" class="ui-content"><!-- 内容 -->
+     <div class="ui-field-contain">
+		<label>实时工情类别</label>
+        <select>  
+            <option value ="1">堤防（段）运行情况</option>  
+            <option value ="2">水库运行情况</option>  
+            <option value="3"> 蓄滞洪区运行情况</option>  
+            <option value="4">水闸运行情况</option>  
+            <option value="5">治河工程运行情况</option> 
+        </select> 
+	 </div>
+     <div class="ui-field-contain">
+         <label>工程名称</label>
+         <input type="text">
+     </div>
+     <div class="ui-field-contain">
+		<label>采集时间</label>
+        <select>  
+            <option value ="1">2013-12-12 10：00：02</option>  
+            <option value ="2">2014-12-12 10：00：02</option>  
+            <option value="3">2015-12-12 10：00：02</option>  
+            <option value="4">2016-12-12 10：00：02</option>  
+        </select> 
+	 </div> 
+     <div class="ui-field-contain">
+         <label>填报单位</label>
+         <input type="text">
+     </div> 
+     <a href="#" id="ajaxbtn" class="ui-btn ui-btn-center">报表</a>   
+  </div>
+ <div data-role="footer" data-position="fixed"><!-- 页脚文本 -->
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index" data-icon="star">实时水雨情</a></li>
+        <li><a href="#index2" data-icon="star">防汛组织</a></li>
+        <li><a href="#index3" data-icon="star">实时工险情</a></li>
+	 </ul>
+	</div>
+  </div>
+</div>
+<!-- 险情 -->
+<div data-role="page" id="index3-2"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed"><!-- 标题 -->
+
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index3" data-icon="grid">实时工情</a></li>
+        <li><a href="#index3-2" data-icon="grid">险情</a></li>
+        <li><a href="#index3-3" data-icon="grid">防汛动态</a></li>
+	 </ul>
+	</div>  
+  </div>
+
+  <div role="main" class="ui-content"><!-- 内容 -->
+     <div class="ui-field-contain">
+		<label>险情类别</label>
+        <select>  
+            <option value ="1">决口险情</option>  
+            <option value ="2">浸溢险情</option>  
+            <option value="3"> 管涌险情</option>  
+            <option value="4">陷坑险情</option>  
+            <option value="5">滑坡险情</option> 
+        </select> 
+	 </div>
+     <div class="ui-field-contain">
+         <label>工程名称</label>
+         <input type="text">
+     </div>
+     <div class="ui-field-contain">
+		<label>采集时间</label>
+        <select>  
+            <option value ="1">2013-12-12 10：00：02</option>  
+            <option value ="2">2014-12-12 10：00：02</option>  
+            <option value="3">2015-12-12 10：00：02</option>  
+            <option value="4">2016-12-12 10：00：02</option>  
+        </select> 
+	 </div> 
+     <div class="ui-field-contain">
+         <label>填报单位</label>
+         <input type="text">
+     </div> 
+     <a href="#" id="ajaxbtn" class="ui-btn ui-btn-center">报表</a>   
+  </div>
+ <div data-role="footer" data-position="fixed"><!-- 页脚文本 -->
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index" data-icon="star">实时水雨情</a></li>
+        <li><a href="#index2" data-icon="star">防汛组织</a></li>
+        <li><a href="#index3" data-icon="star">实时工险情</a></li>
+	 </ul>
+	</div>
+  </div>
+</div>
+<!-- 防汛动态 -->
+<div data-role="page" id="index3-3"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed"><!-- 标题 -->
+
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index3" data-icon="grid">实时工情</a></li>
+        <li><a href="#index3-2" data-icon="grid">险情</a></li>
+        <li><a href="#index3-3" data-icon="grid">防汛动态</a></li>
+	 </ul>
+	</div>  
+  </div>
+
+  <div role="main" class="ui-content"><!-- 内容 -->
+     <div class="ui-field-contain">
+		<label>日期</label>
+        <select>  
+            <option value ="1">2013-12-12</option>  
+            <option value ="2">2013-12-13</option>  
+            <option value ="3">2013-12-14</option>  
+            <option value ="4">2013-12-15</option>  
+            <option value ="5">2013-12-16</option>
+        </select> 
+	 </div> 
+     <div class="ui-field-contain">
+         <label>填报单位</label>
+         <input type="text">
+     </div> 
+     <a href="#" id="ajaxbtn" class="ui-btn ui-btn-center">报表</a>   
+  </div>
+ <div data-role="footer" data-position="fixed"><!-- 页脚文本 -->
+    <div data-role="navbar">
+	 <ul>
+	    <li><a href="#index" data-icon="star">实时水雨情</a></li>
+        <li><a href="#index2" data-icon="star">防汛组织</a></li>
+        <li><a href="#index3" data-icon="star">实时工险情</a></li>
+	 </ul>
+	</div>
+  </div>
+</div>
+
+<script src="jquery.mobile-1.4.5/jquery-2.1.4.js"></script><!-- Jq -->
+<script src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.js"></script><!-- 脚本 -->
+<script>
+$(document).on("pageinit","#index",function(){<!-- JQM事件 -->
+    var url="http://crossorigin.me/http://www.webxml.com.cn/WebServices/TrainTimeWebService.asmx/getDetailInfoByTrainCode?TrainCode=G231&UserID=";
+    $("#ajaxbtn").on("click",function(){
+        $.mobile.loading("show");
+        $.get(url,{},function(data){
+            console.log(data);
+        $.mobile.loading("hide");
+            });
+        });
+});
+
+</script>
+</body>
+</html>
+
