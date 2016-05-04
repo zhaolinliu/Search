@@ -1,0 +1,15 @@
+<widget id="com.example.hello" version="0.0.1">
+<name>∑¿—¥≤È—Ø</name>
+
+<description>
+</description>
+
+<author email="robin.qiwei@163.com">
+ZhaoLinLiu      
+</author>        
+
+<content src="index.html" />
+<access orgin="*" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+</widget>
