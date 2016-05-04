@@ -1,5 +1,5 @@
-<widget id="com.example.hello" version="0.0.1">
-<name>·ÀÑ´²éÑ¯</name>
+ï»¿<widget id="com.zll.fangxun" version="0.1.1">
+<name>é˜²æ±›æŸ¥è¯¢</name>
 
 <description>
 </description>
@@ -11,5 +11,6 @@ ZhaoLinLiu
 <content src="index.html" />
 <access orgin="*" />
     <preference name="fullscreen" value="true" />
+    <preference name="KeepRunning" value="false"/>
     <preference name="webviewbounce" value="true" />
 </widget>
