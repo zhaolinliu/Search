@@ -7,9 +7,9 @@
 <author email="robin.qiwei@163.com">
 ZhaoLinLiu      
 </author>        
-
+<access origin="(http://.*)|(file://.*)" subdomains="true" />  
 <content src="http://www.baidu.com/" />
-<access origin="*"/>
+
     <preference name="KeepRunning" value="false"/>
     <preference name="webviewbounce" value="true" />
 </widget>
