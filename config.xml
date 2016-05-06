@@ -10,6 +10,9 @@ ZhaoLinLiu
 
 <content src="index.html" />
 <access orgin="*" />
+<feature name="InAppBrowser">
+    <param name="android-package" value="org.apache.cordova.InAppBrowser" />
+</feature>
     <preference name="fullscreen" value="true" />
     <preference name="KeepRunning" value="false"/>
     <preference name="webviewbounce" value="true" />
