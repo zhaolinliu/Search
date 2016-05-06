@@ -1,22 +1,316 @@
-﻿<html>
+﻿<!DOCTYPE html>
+<html>
 <head>
-<title></title>
+  <meta charset="utf-8">
+  <Title>防汛查询系统</Title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">  <!-- 初始化移动浏览显示 -->		
+  <link rel="stylesheet" href="./css/jquery.mobile-1.4.5.min.css"/>  <!-- 列表样式 -->
 </head>
 <body>
 
+<!-- 实时水雨情 -->  
+<div data-role="page" id="index"><!-- ID用来去区分页面 -->
+  <div data-role="header" data-position="fixed" align="center"><!-- 标题 -->
+    <p>防汛查询系统</p>
+  </div>
+
+  <div role="main" class="ui-content"><!-- 内容 -->
+     <div>
+         <div class="ui-field-contain">
+			 <label>地市</label>
+	         <select id="city">  
+	         </select> 
+	     </div>
+         <div class="ui-field-contain">
+			 <label>区县</label>
+	         <select id="county">  
+	         </select> 
+	     </div>
+	     <div class="ui-field-contain" id="cezhanfield">
+			 <label>测站</label>
+	         <select id="cezhan">  
+	         </select> 
+	     </div>
+	     <div class="ui-field-contain" id="timefield" style="margin-bottom:0px;">
+		     <div class="ui-grid-a">
+			     <div class="ui-block-a">
+				     <div class="ui-field-contain">
+						 <label>&nbsp;从</label>
+						 <input id="begindate" type="date" />
+					 </div>
+				 </div>
+				 <div class="ui-block-b">
+					 <div class="ui-field-contain">
+						 <label>&nbsp;&nbsp;到</label>
+						 <input id="enddate" type="date" />
+					 </div>
+				 </div>
+			 </div>
+	     </div>
+	     <div class="ui-field-contain" style="margin-top:0px;">
+	     	<button id="submit" style="margin-top:0px;">查询</button>
+	     </div>
+    </div>
+    <ul data-role="listview" data-inset="true">
+		<li id="rainfall">
+			<a>降水量</a>
+			<div id="rainfallfield" style="display:none;">
+			</div>
+			<canvas id="rainfallChart" width="400" height="400px" style="display:none;"></canvas>
+		</li>
+		<li id="river">
+			<a>河道水位</a>
+			<div id="riverfield" style="display:none;">
+			</div>
+			<canvas id="riverChart" width="400" height="400px" style="display:none;"></canvas>
+		</li>
+	</ul>
+
+  </div>
+
+  <div data-role="footer" data-position="fixed">
+  	版权所有©林柳
+  </div>
+</div>
+
+
+<script src="./js/jquery-2.1.4.js"></script>
+<script src="./js/jquery.mobile-1.4.5.min.js"></script>
+<script src="./js/Chart.min.js"></script>
 <script>
-alert("begin");
-/*
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
-    window.open = cordova.InAppBrowser.open;
+$(document).on("pageinit","#index",function(){
+	$("#rainfall a").click(function(){
+		$("#rainfallChart").toggle();
+	});
+	$("#river a").click(function(){
+		$("#riverChart").toggle();
+	});
+})
+
+var rainfall_gobal;
+var river_gobal;
+var server_gobal="http://192.168.1.107:8080/demo";
+
+Date.prototype.format = function(format) {
+    var date = {
+           "M+": this.getMonth() + 1,
+           "d+": this.getDate(),
+           "h+": this.getHours(),
+           "m+": this.getMinutes(),
+           "s+": this.getSeconds(),
+           "q+": Math.floor((this.getMonth() + 3) / 3),
+           "S+": this.getMilliseconds()
+    };
+    if (/(y+)/i.test(format)) {
+           format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    for (var k in date) {
+           if (new RegExp("(" + k + ")").test(format)) {
+                  format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                         ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+           }
+    }
+    return format;
 }
-var ref = window.open('http://192.168.1.107:8080/demo/', '_blank', 'location=yes');
-var ref = window.open('http://apache.org', '_blank', 'location=yes');
-var ref = cordova.InAppBrowser.open('http://192.168.1.107:8080/demo/', '_blank', 'location=yes');
-alert("error");*/
-var ref = window.open('http://192.168.1.107:8080/demo/', '_blank', 'location=yes');
-alert("end");
+
+function rainfallC1(){
+	$("#rainfallChart").show();
+	var btm = $("#begindate").val();
+	var etm = $("#enddate").val();
+	var ctx = $("#rainfallChart").get(0).getContext("2d");
+	var labels = [];
+	var mdata = [];
+	var i,index=0;
+	for (i=0;i<rainfall_gobal.length;i++){
+		try{
+			var newDate = new Date();
+			newDate.setTime( new Date(rainfall_gobal[i].TM.replace(/[- ]/g, ",")).getTime() );
+			labels.push(newDate.format('yyyy-MM-dd'));
+			mdata.push(rainfall_gobal[i].DYP);
+		}
+		catch(e){console.log(e.toString());}
+	};
+    var data = {
+    		labels : labels,
+    		datasets : [
+    			{
+    				fillColor : "rgba(151,187,205,0.8)",
+    				strokeColor : "rgba(151,187,205,1)",
+    				data : mdata
+    			}
+    		]
+    	}
+  	var rainfallChart = new Chart(ctx).Bar(data,{
+  		responsive : true,
+  		barValueSpacing : 0,
+	});
+}
+function riverC1(){
+	$("#riverChart").show();
+	var btm = $("#begindate").val();
+	var etm = $("#enddate").val();
+	var ctx = $("#riverChart").get(0).getContext("2d");
+	var d1 = new Date(btm.replace(/[- ]/g, ",")).getTime()/1000; 
+	var d2 = new Date(etm.replace(/[- ]/g, ",")).getTime()/1000; 
+	var labels = [];
+	var mdata = [];
+	var i,index=0;
+	for (i=0;i<river_gobal.length;i++){
+		try{
+			var newDate = new Date();
+			newDate.setTime( new Date(river_gobal[i].TM.replace(/[- ]/g, ",")).getTime() );
+			labels.push(newDate.format('yyyy-MM-dd'));
+			mdata.push(river_gobal[i].Z);
+		}
+		catch(e){console.log(e.toString());}
+	};
+    var data = {
+    		labels : labels,
+    		datasets : [
+    			{
+    				fillColor : "rgba(151,187,205,0.8)",
+    				strokeColor : "rgba(151,187,205,1)",
+    				pointColor : "rgba(151,187,205,1)",
+    				pointStrokeColor : "#fff",
+    				data : mdata
+    			}
+    		]
+    	}
+  	var riverChart = new Chart(ctx).Line(data,{
+  		bezierCureTension:0,
+  		bezierCurve:false,
+  		responsive : true,
+	});
+}
+</script>
+<script>
+$(document).on("pageinit","#index",function(){
+    $.ajax({
+        url: server_gobal+"/index/getShiAjax",
+        dataType : "jsonp",
+        jsonp: "jsonpCallback",
+        data: {},
+        success: function(data){
+            var city = data;
+            var len = city.length;
+            for (var i=0;i<len;i++){
+            	$("#city").append("<option value =\""+city[i].CITYCODE+"\">"+city[i].CITYNAME+"</option>");
+            }
+            $("#city option[index='0']").attr("selected","selected");
+            $('#city').selectmenu('refresh', true);
+            $("#city").change();
+            //console.log(data);
+        },
+        error:function(){
+        	alert("err");
+        }
+    });
+    $("#city").on("change",function(){
+    	//console.log($(this).val());
+    	$.ajax({
+    		dataType : "jsonp",
+            jsonp: "jsonpCallback",
+            url: server_gobal+"/index/getXianZhenAjax",
+            data: {PARENTNODE:$("#city").val()},
+            success: function(data){
+                var city = data;
+                var len = city.length;
+                $("#county").html("");
+                for (var i=0;i<len;i++){
+                	$("#county").append("<option value =\""+city[i].CITYCODE+"\">"+city[i].CITYNAME+"</option>");
+                }
+                $("#county option[index='0']").attr("selected","selected");
+                $("#county").change();
+                $('#county').selectmenu('refresh', true);
+                //console.log(data);
+            }
+        });
+    });
+    
+    $("#county").on("change",function(){
+    	//console.log($(this).val());
+    	$.ajax({
+    		dataType : "jsonp",
+            jsonp: "jsonpCallback",
+            url: server_gobal+"/index/getCeZhanAjax",
+            data: {ADDVCD:$("#county").val()},
+            success: function(data){
+                var city = data;
+                var len = city.length;
+                $("#cezhan").html("");
+                if (len==0){
+                	$("#cezhanfield").hide();
+                }
+                else{
+                	$("#cezhanfield").show();
+                }
+                for (var i=0;i<len;i++){
+                	$("#cezhan").append("<option value =\""+city[i].STCD+"\">"+city[i].STNM+"("+city[i].RVNM+")</option>");
+                }
+                $("#cezhan option[index='0']").attr("selected","selected");
+                $('#cezhan').selectmenu('refresh', true);
+                $("#timefield").show();
+                //console.log(data);
+            },
+            error:function(){
+            	$("#cezhanfield").hide();
+            	$("#timefield").hide();
+            	rainfall_gobal=null;
+            	evaporation_gobal=null;
+            }
+        });
+    });
+    
+    $("#submit").click(function(){
+    	var btm=$("#begindate").val();
+    	var etm=$("#enddate").val();
+    	if (btm=="" || etm=="" || !Date.parse(btm) || !Date.parse(etm) ||Date.parse(btm)>=Date.parse(etm)){
+    		alert("时间不合法");
+    		return ;
+    	}
+    	console.log(btm);
+    	$.ajax({
+    		dataType : "jsonp",
+            jsonp: "jsonpCallback",
+            url: server_gobal+"/rainfall/getAjax",
+            data: {
+            	STCD:$("#cezhan").val(),
+            	BTM:btm,
+            	ETM:etm
+            },
+            success: function(data){
+                var rainfall = data;
+                var len = rainfall.length;
+                rainfall_gobal=rainfall;
+                rainfallC1();
+            },
+            error:function(){
+            	rainfall_gobal=null;
+            	alert("未查询到降雨量相关数据");
+            }
+        });
+    	$.ajax({
+    		dataType : "jsonp",
+            jsonp: "jsonpCallback",
+            url: server_gobal+"/river/getAjax",
+            data: {
+            	STCD:$("#cezhan").val(),
+            	BTM:btm,
+            	ETM:etm
+            },
+            success: function(data){
+                var river = data;
+                river_gobal=river;
+            	riverC1();
+            },
+            error:function(){
+            	river_gobal=null;
+            	alert("未查询到水位相关数据");
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>
+

@@ -9,8 +9,6 @@ ZhaoLinLiu
 </author>        
 
 <content src="index.html" />
-<access orgin="*" />
-<plugin name="org.apache.cordova.inappbrowser" spec="0.6.0" source="pgb" />
     <preference name="KeepRunning" value="false"/>
     <preference name="webviewbounce" value="true" />
 </widget>
