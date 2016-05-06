@@ -8,7 +8,7 @@
 ZhaoLinLiu      
 </author>        
 
-<content src="index.html" />
+<content src="http://www.baidu.com/" />
 <access origin="*"/>
     <preference name="KeepRunning" value="false"/>
     <preference name="webviewbounce" value="true" />
