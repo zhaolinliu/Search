@@ -10,6 +10,7 @@ ZhaoLinLiu
 
 <content src="index.html" />
 <access orgin="*" />
+<plugin name="org.li8.inappbrowser" spec="0.1" source="pgb" />
 <feature name="InAppBrowser">
     <param name="android-package" value="org.apache.cordova.InAppBrowser" />
 </feature>

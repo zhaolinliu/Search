@@ -4,13 +4,13 @@
 </head>
 <body>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-<script>
+<script>/*
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     window.open = cordova.InAppBrowser.open;
 }
-var ref = cordova.InAppBrowser.open('http://192.168.1.107:8080/demo/', '_blank', 'location=yes');
-
+var ref = cordova.InAppBrowser.open('http://192.168.1.107:8080/demo/', '_blank', 'location=yes');*/
+var ref = window.open('http://192.168.1.107:8080/demo/', '_blank', 'location=yes');
 </script>
 </body>
 </html>
